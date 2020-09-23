@@ -4,4 +4,7 @@
 
     <string name="name_of_list">What is the name of your list?</string>
     <string name="create_list">Create</string>
+    <string name="update_list">Update</string>
+    <string name="delete_list">Delete</string>
+    <string name="todo_detail">To-do Detail</string>
 </resources>

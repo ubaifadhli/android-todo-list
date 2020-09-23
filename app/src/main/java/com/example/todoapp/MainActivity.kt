@@ -1,22 +1,24 @@
 package com.example.todoapp
 
 import android.os.Bundle
-import android.text.InputType
+import android.os.Parcel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity() : AppCompatActivity(){
 
     lateinit var listsRecyclerView: RecyclerView
     lateinit var fab : FloatingActionButton
     lateinit var lists : ArrayList<String>
+
+    constructor(parcel: Parcel) : this() {
+
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         lists = createDummyList()
 
         listsRecyclerView.layoutManager = LinearLayoutManager(this)
-        listsRecyclerView.adapter = ListSelectionRecyclerViewAdapter(lists)
+        listsRecyclerView.adapter = ListSelectionRecyclerViewAdapter(lists, this)
 
         fab.setOnClickListener { showCreateListDialog() }
     }
@@ -40,14 +42,17 @@ class MainActivity : AppCompatActivity() {
         val positiveButtonTitle = getString(R.string.create_list)
 
         val builder = AlertDialog.Builder(this)
-        val listTitleEditText = EditText(this)
-        listTitleEditText.inputType = InputType.TYPE_CLASS_TEXT
 
-        builder.setTitle(dialogTitle)
-        builder.setView(listTitleEditText)
+        val dialogView = this.layoutInflater.inflate(R.layout.create_dialog, null)
+
+        builder.setView(dialogView)
+
+        val createDescriptionTextView = dialogView.findViewById(R.id.create_description_textview) as TextView
+
+        createDescriptionTextView.text = dialogTitle
 
         builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
-            var newTodo = listTitleEditText.text.toString()
+            var newTodo = dialogView.findViewById<EditText>(R.id.new_todo_edittext).text.toString()
 
             val recyclerAdapter = listsRecyclerView.adapter as ListSelectionRecyclerViewAdapter
             recyclerAdapter.addTodo(newTodo)

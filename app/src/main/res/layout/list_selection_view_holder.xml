@@ -3,17 +3,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:id="@+id/parentLayout">
 
     <TextView
-        android:id="@+id/itemNumber"
+        android:id="@+id/item_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:text="1" />
 
     <TextView
-        android:id="@+id/itemString"
+        android:id="@+id/item_string"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:text="Hello" />
 </LinearLayout>
